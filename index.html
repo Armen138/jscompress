@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
+    <script src='javascripts/main.js'></script>
     <title>Jscompress by Armen138</title>
   </head>
 
@@ -29,6 +29,9 @@
     <div class="container">
       <section id="main_content">
         <p>Paste Javascript code below, and hit 'compress'<br><em>NB</em> You will get better result if the code is minified already</p>
+        <div id='in'><textarea id='ta' style='width: 100%; height: 300px'></textarea></div>
+        <a href='#' id='compress' class='btn'> compress </a>
+        <div id='out'><textarea id='to' style='width: 100%; height: 300px'></textarea></div>        
       </section>
     </div>
 
