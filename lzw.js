@@ -32,44 +32,28 @@ var LZW = {
             result.push(dictionary[w]);
         }
         return result;
-    },
- 
- 
-    decompress: function (compressed) {
-        "use strict";
-        // Build the dictionary.
-        var i,
-            dictionary = [],
-            w,
-            result,
-            k,
-            entry = "",
-            dictSize = 256;
-        for (i = 0; i < 256; i += 1) {
-            dictionary[i] = String.fromCharCode(i);
-        }
- 
-        w = String.fromCharCode(compressed[0]);
-        result = w;
-        for (i = 1; i < compressed.length; i += 1) {
-            k = compressed[i];
-            if (dictionary[k]) {
-                entry = dictionary[k];
-            } else {
-                if (k === dictSize) {
-                    entry = w + w.charAt(0);
-                } else {
-                    return null;
-                }
-            }
- 
-            result += entry;
- 
-            // Add w+entry[0] to the dictionary.
-            dictionary[dictSize++] = w + entry.charAt(0);
- 
-            w = entry;
-        }
-        return result;
     }
 }
+
+window.addEventListener("load", function() {
+    var txt = document.getElementById('ta');
+    var out = document.getElementById('to');
+    var a = document.getElementById('compress');
+    a.addEventListener("click", function() {         
+        var compressed = LZW.compress(txt.value);
+        var stringy = "";
+        for(var i = 0; i < compressed.length; i++) {
+            stringy += String.fromCharCode(compressed[i]);
+        }
+        //alert(test(stringy));
+        //alert(LZW.decompressString(stringy));
+
+        var edible = [];
+        for(var i = 0; i < stringy.length; i++) {
+            edible.push(stringy.charCodeAt(i));
+        }
+        var res = 'eval(function(e){var t,n=[],r,i,s,o="",u=256;for(t=0;t<256;t++)n[t]=String.fromCharCode(t);r=e[0],i=r;for(t=1;t<e.length;t++){s=e.charCodeAt(t);if(n[s])o=n[s];else{if(s!==u)return null;o=r+r.charAt(0)}i+=o,n[u++]=r+o.charAt(0),r=o}return i}(compressed))'.replace("compressed", JSON.stringify(stringy));   
+        out.value = res;
+               
+    }); 
+});

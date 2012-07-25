@@ -1,4 +1,4 @@
 jscompress
 ==========
 
-an attempt at compressing script
+uses LZW compression to compress code to a unicode string, includes minified decompression code in the output.
